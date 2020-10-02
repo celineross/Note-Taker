@@ -1,14 +1,27 @@
 {
   "name": "note-taker",
   "version": "1.0.0",
-  "description": "",
+  "description": "an app that can add, delete, or change sets of notes.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Celine Ross",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/celineross/Note-Taker.git"
+  },
+  "keywords": [
+    "notetaking",
+    "notes"
+  ],
+  "bugs": {
+    "url": "https://github.com/celineross/Note-Taker/issues"
+  },
+  "homepage": "https://github.com/celineross/Note-Taker#readme"
 }
