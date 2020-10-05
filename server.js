@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //display homepage
-app.get("/", function (req, res) {
+app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "./public/index.html"))
 });
 
@@ -27,15 +27,43 @@ app.get("/notes", function (req, res) {
     res.sendFile(path.join(__dirname, "./public/notes.html"))
 });
 
-app.get("/notes", function (req, res) {
+app.get("/api/notes", function (req, res) {
     readFileAsync("./db/db.json", "utf8")
         .then(function (data, err) {
             if (err)
                 console.log(err);
             return res.json(JSON.parse(data));
-        })
-})
+        });
+});
 
+//function to set up note posts
+app.post("/api/notes", function(req, res) {
+    var note = req.body;
+
+    //use promise to check for errors
+    readFileAsync(".db/db.json", "utf8")
+    .then(function(data, err) {
+        if (err)
+        console.log(err);
+        return Promise.resolve(JSON.parse(result));
+
+    //use promise to check the note and push it to the page
+    }).then(function (data) {
+        note.idx = getLastIndex(data) + 1;
+        (data.length > 0) ? data.push(note): data = [note];
+        return Promise.resolve(data);
+
+    //write file to .json file
+    }).then (function (data) {
+        writeFileAsync("./db/db.json", JSON.stringify(data));
+        res.JSON(note);
+
+    //throw an error if flow is not followed
+    }).catch(function (err) {
+        if (err)
+        throw err;
+    });
+});
 
 //start server to begin listening
 app.listen(PORT, function () {
