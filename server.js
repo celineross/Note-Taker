@@ -37,33 +37,68 @@ app.get("/api/notes", function (req, res) {
 });
 
 //function to set up note posts
-app.post("/api/notes", function(req, res) {
-    var note = req.body;
+app.post("/api/notes", function (req, res) {
+    var newNote = req.body;
 
     //use promise to check for errors
     readFileAsync(".db/db.json", "utf8")
-    .then(function(data, err) {
-        if (err)
-        console.log(err);
-        return Promise.resolve(JSON.parse(result));
+        .then(function (data, err) {
+            if (err)
+                console.log(err);
+            return Promise.resolve(JSON.parse(data));
 
-    //use promise to check the note and push it to the page
-    }).then(function (data) {
-        note.idx = getLastIndex(data) + 1;
-        (data.length > 0) ? data.push(note): data = [note];
-        return Promise.resolve(data);
+        //use promise to check the note and push it to the page
+        }).then(function (data) {
+            newNote.idx = getPrevIndex(data) + 1;
+            (data.length > 0) ? data.push(newNote) : data = [newNote];
+            return Promise.resolve(data);
 
-    //write file to .json file
-    }).then (function (data) {
-        writeFileAsync("./db/db.json", JSON.stringify(data));
-        res.JSON(note);
+        //write file to .json file
+        }).then(function (data) {
+            writeFileAsync("./db/db.json", JSON.stringify(data));
+            res.JSON(newNote);
 
-    //throw an error if flow is not followed
-    }).catch(function (err) {
-        if (err)
-        throw err;
-    });
+        //error catch
+        }).catch(function (err) {
+            if (err)
+                throw err;
+        });
 });
+
+//delete a note
+app.delete("/api/notes/:id", function (req, res) {
+    var id = req.params.id;
+
+    //use promise to check for errors
+    readFileAsync("./db/db.json", "utf8")
+        .then(function (data, err) {
+            if (err)
+                console.log(err);
+            return Promise.resolve(JSON.parse(data))
+        
+        //finds the index of a piece of data and splices it out
+        }).then(function (data) {
+            data.splice(data.indexOf(data.find(function (element) {
+                element.id = id;
+            })), 1);
+            return Promise.resolve(data);
+        //writes note as string and stores in db.json, sends done message
+        }).then(function (data) {
+            writeFileAsync("./db/db.json", JSON.stringify(data));
+            res.send("Done")
+        //error catch
+        }).catch(function (err) {
+            if (err)
+            throw err;
+        });
+});
+
+//helper function to get index
+function getPrevIndex(data) {
+    if (data.length > 0)
+    return data[data.length - 1].id;
+    return 0;
+}
 
 //start server to begin listening
 app.listen(PORT, function () {
