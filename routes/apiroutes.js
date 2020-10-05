@@ -5,4 +5,3 @@ fs.readFile("./db/db.json", "utf8", function(err, data) {
     var getNotes = JSON.parse(data);
     return getNotes;
 });
-
