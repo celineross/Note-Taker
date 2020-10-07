@@ -38,7 +38,7 @@ app.get("/api/notes", function (req, res) {
 
 //any input displays index.html
 app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "public/index.html"))
+    res.sendFile(path.join(__dirname, "./public/index.html"))
 })
 
 //function to set up note posts
@@ -79,7 +79,7 @@ app.delete("/api/notes/:id", function (req, res) {
         .then(function (data, err) {
             if (err)
                 console.log(err);
-            return Promise.resolve(JSON.parse(data))
+            return Promise.resolve(JSON.parse(data));
         
         //finds the index of a piece of data and splices it out
         }).then(function (data) {
