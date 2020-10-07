@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //display homepage
-app.get("*", function (req, res) {
+app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "./public/index.html"))
 });
 
@@ -35,6 +35,11 @@ app.get("/api/notes", function (req, res) {
             return res.json(JSON.parse(data));
         });
 });
+
+//any input displays index.html
+app.get("*", function(req, res) {
+    res.sendFile(path.join(__dirname, "public/index.html"))
+})
 
 //function to set up note posts
 app.post("/api/notes", function (req, res) {
