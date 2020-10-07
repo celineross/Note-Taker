@@ -2,9 +2,8 @@
 
 
 ## Deployed
-
 [Deployed App](https://secure-castle-48565.herokuapp.com/)
-
+[Repository](https://github.com/celineross/Note-Taker)
 
 ## Author
 <p>Celine Ross</p>
