@@ -46,7 +46,7 @@ app.post("/api/notes", function (req, res) {
     var newNote = req.body;
 
     //use promise to check for errors
-    readFileAsync(".db/db.json", "utf8")
+    readFileAsync("./db/db.json", "utf8")
         .then(function (data, err) {
             if (err)
                 console.log(err);
@@ -55,13 +55,13 @@ app.post("/api/notes", function (req, res) {
         //use promise to check the note and push it to the page
         }).then(function (data) {
             newNote.idx = getPrevIndex(data) + 1;
-            (data.length > 0) ? data.push(newNote) : data = [newNote];
+            (data.length > 0) ? data.push(newNote): data = [newNote];
             return Promise.resolve(data);
 
         //write file to .json file
         }).then(function (data) {
             writeFileAsync("./db/db.json", JSON.stringify(data));
-            res.JSON(newNote);
+            res.json(newNote);
 
         //error catch
         }).catch(function (err) {

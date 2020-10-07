@@ -1,5 +1,11 @@
 # Note-Taker
 
+
+## Deployed
+
+[Deployed App](https://secure-castle-48565.herokuapp.com/)
+
+
 ## Author
 <p>Celine Ross</p>
 

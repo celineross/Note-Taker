@@ -4,6 +4,7 @@
   "description": "an app that can add, delete, or change sets of notes.",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Celine Ross",
